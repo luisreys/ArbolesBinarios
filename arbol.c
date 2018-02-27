@@ -112,7 +112,8 @@ int altura(Arbol raiz){
 
 
 int numNodos(Arbol raiz){
-	int contadorIzq, contadorDer;
+	int contadorIzq = 0;
+	int contadorDer = 0;
 	
 	if(raiz == null){
 		return -1;		
@@ -132,4 +133,113 @@ int numNodos(Arbol raiz){
 	
 	return contadorIzq + contadorDer + 1;
 }
+
+
+Arbol anula(Arbol raiz){
+	
+	if(raiz == null){
+		return -1;
+	}
+	
+	if(raiz->izq != null){
+		if(anula(raiz->izq) == null){
+			free(raiz->izq);
+			raiz->izq = null;
+		}
+	}
+	
+	if(raiz->der != null){
+		if(anula(raiz->der) == null){
+			free(raiz->der);
+			raiz->der = null;
+		}
+	}
+	
+	if(raiz->izq == null && raiz->der == null){
+		return null;
+	}
+}
+
+
+//Sustituye, en al arbol dado, los nodos con valor x en el campo de información por y
+int sustiuye(Arbol raiz, tipoInfo x, tipoInfo y){
+	int sustituido = 0;
+	int auxIzq, auxDer;
+	
+	if(raiz == null){
+		return -1;
+	}
+	
+	if(raiz->info == x){
+		raiz->info = y;
+		sustituido = 1;
+	}
+	
+	if(raiz->izq != null){
+		auxIzq = sustituye(raiz->izq, x, y);
+	}
+	
+	if(raiz->der != null){
+		auxDer = sustituye(raiz->der, x, y);
+	}
+	
+	if(raiz->izq == null && raiz->der == null){
+		return sustituido;
+	}else{
+		return auxDer + auxIzq + sustituido;
+	}
+}
+
+
+int numNodosHoja(Arbol raiz){
+	int contadorIzq = 0;
+	int contadorDer = 0;
+	
+	if(raiz == null){
+		return -1;		
+	}
+	
+	if(raiz->izq != null){
+		contadorIzq = numNodos(raiz->izq);
+	}
+	
+	if(raiz->der != null){
+		contadorDer = numNodos(raiz->der);
+	}
+	
+	if(raiz->izq == null && raiz->der == null){
+		return 1;
+	}
+	
+	return contadorIzq + contadorDer;
+}
+
+int numNodosInternos(Arbol raiz){
+	int contadorIzq = 0;
+	int contadorDer = 0;
+	
+	if(raiz == null){
+		return -1;		
+	}
+	
+	if(raiz->izq != null){
+		contadorIzq = numNodos(raiz->izq);
+	}
+	
+	if(raiz->der != null){
+		contadorDer = numNodos(raiz->der);
+	}
+	
+	if(raiz->izq == null && raiz->der == null){
+		return 0;
+	}
+	
+	return contadorIzq + contadorDer + 1;
+}
+
+
+
+
+
+
 
