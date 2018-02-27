@@ -360,3 +360,29 @@ Arbol buscarMin(Arbol raiz){
 }
 
 
+int similares(Arbol r1,Arbol r2){
+	if(r1 == null || r2 == null){
+		return 0;
+	}
+	
+	if(r1->izq != null && r2->izq != null){
+		similares(r1->izq, r2->izq);
+	}
+	
+	if(r1->der != null && r2->der != null){
+		similares(r1->izq, r2->izq);
+	}
+	
+	//Si estamos en la hoja de ambos arboles
+	if(r1->izq == null && r2->izq == null && r1->der == null && r2->der == null){
+		return 1;
+	}
+	
+}
+
+
+
+
+
+
+
