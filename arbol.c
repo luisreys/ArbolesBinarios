@@ -97,7 +97,10 @@ int altura(Arbol raiz){
 	
 	//hemos llegado a una hoja
 	if(raiz->izq == null && raiz->der == null){
-		return 1;
+		//si estamos en una hoja devolveremos 0 ya que la raiz también va a devolver aux +1,
+		//por lo que se contaría una altur de más, de esta manera, si la hoja devuelve 0 se 
+		//harán bien los calculos.
+		return 0;
 	}
 	
 	if(auxDer > auxIzq){
@@ -108,5 +111,25 @@ int altura(Arbol raiz){
 }
 
 
-
+int numNodos(Arbol raiz){
+	int contadorIzq, contadorDer;
+	
+	if(raiz == null){
+		return -1;		
+	}
+	
+	if(raiz->izq != null){
+		contadorIzq = numNodos(raiz->izq);
+	}
+	
+	if(raiz->der != null){
+		contadorDer = numNodos(raiz->der);
+	}
+	
+	if(raiz->izq == null && raiz->der == null){
+		return 1;
+	}
+	
+	return contadorIzq + contadorDer + 1;
+}
 
