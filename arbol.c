@@ -200,11 +200,11 @@ int numNodosHoja(Arbol raiz){
 	}
 	
 	if(raiz->izq != null){
-		contadorIzq = numNodos(raiz->izq);
+		contadorIzq = numNodosHoja(raiz->izq);
 	}
 	
 	if(raiz->der != null){
-		contadorDer = numNodos(raiz->der);
+		contadorDer = numNodosHoja(raiz->der);
 	}
 	
 	if(raiz->izq == null && raiz->der == null){
@@ -223,11 +223,11 @@ int numNodosInternos(Arbol raiz){
 	}
 	
 	if(raiz->izq != null){
-		contadorIzq = numNodos(raiz->izq);
+		contadorIzq = numNodosInternos(raiz->izq);
 	}
 	
 	if(raiz->der != null){
-		contadorDer = numNodos(raiz->der);
+		contadorDer = numNodosInternos(raiz->der);
 	}
 	
 	if(raiz->izq == null && raiz->der == null){
@@ -238,8 +238,125 @@ int numNodosInternos(Arbol raiz){
 }
 
 
+int numHijoUnico(Arbol raiz){
+	int contadorIzq = 0;
+	int contadorDer = 0;
+	
+	if(raiz == null){
+		return -1;		
+	}
+	
+	if(raiz->izq != null){
+		contadorIzq = numHijoUnico(raiz->izq);
+	}
+	
+	if(raiz->der != null){
+		contadorDer = numHijoUnico(raiz->der);
+	}
+	
+	if(raiz->izq == null && raiz->der == null){
+		return 0;
+	}else if(raiz->izq == null && raiz->der != null){
+		return contadorDer + 1;
+	}else if(raiz->izq != null && raiz->der == null){
+		return contadorIzq + 1;
+	}else{
+		return contadorIzq + contadorDer + 0;
+	}
+}
+
+Arbol buscarMax(Arbol raiz){
+	Arbol arbolIzq = 0;
+	Arbol arbolDer = 0;
+	
+	if(raiz == null){
+		return -1;
+	}
+	
+	if(raiz->izq != null){
+		arbolIzq = buscarMax(raiz->izq);
+	}
+	
+	if(raiz->der != null){
+		arbolDer = buscarMax(raiz->der);
+	}
+	
+	if(raiz->izq == null && raiz->der == null){
+		return raiz;
+	}else if(arbolIzq != null && arbolDer == null){
+		if(arbolIzq->info > raiz->info){
+			return arbolIzq;
+		}else{
+			return raiz;
+		}
+	}else if(arbolIzq == null && arbolDer != null){
+		if(arbolDer->info > raiz->info){
+			return arbolDer;
+		}else{
+			return raiz;
+	}else{
+		if(arbolIzq->info > arbolDer->info){
+			if(arbolIzq->info > raiz->info){
+				return arbolIzq;
+			}else{
+				return raiz;
+			}
+		}else{
+			if(arbolDer->info > raiz->info){
+				return arbolDer;
+			}else{
+				return raiz;
+			}
+		}
+	}
+}
 
 
-
+Arbol buscarMin(Arbol raiz){
+	Arbol arbolIzq = null;
+	Arbol arbolDer = null;
+	
+	if(raiz == null){
+		return -1;
+	}
+	
+	if(raiz->izq != null){
+		arbolIzq = buscarMax(raiz->izq);
+	}
+	
+	if(raiz->der != null){
+		arbolDer = buscarMax(raiz->der);
+	}
+	
+	if(raiz->izq == null && raiz->der == null){
+		return raiz;
+	}else if(arbolIzq != null && arbolDer == null){
+		if(arbolIzq->info < raiz->info){
+			return arbolIzq;
+		}else{
+			return raiz;
+		}
+	}else if(arbolIzq == null && arbolDer != null){
+		if(arbolDer->info < raiz->info){
+			return arbolDer;
+		}else{
+			return raiz;
+		}
+	}else{
+		if(arbolIzq->info < arbolDer->info){
+			if(arbolIzq->info < raiz->info){
+				return arbolIzq;
+			}else{
+				return raiz;
+			}
+		}else{
+			if(arbolDer->info < raiz->info){
+				return arbolDer;
+			}else{
+				return raiz;
+			}
+		}
+	}
+}
 
 
