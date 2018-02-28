@@ -361,26 +361,80 @@ Arbol buscarMin(Arbol raiz){
 
 
 int similares(Arbol r1,Arbol r2){
+	int equivalenciaIzq = 1;
+	int equivalenciaDer = 1;
+	
 	if(r1 == null || r2 == null){
 		return 0;
 	}
 	
+	
 	if(r1->izq != null && r2->izq != null){
-		similares(r1->izq, r2->izq);
+		equivalenciaIzq = similares(r1->izq, r2->izq);
+	}else if(r1->izq == null && r2->izq == null){
+		equivalenciaIzq = 1;
+	}else{
+		equivalenciaIzq = 0;
 	}
 	
+	
 	if(r1->der != null && r2->der != null){
-		similares(r1->izq, r2->izq);
+		equivalenciaDer = similares(r1->izq, r2->izq);
+	}else if(r1->der == null && r2->der == null){
+		equivalenciaDer = 1;
+	}else{
+		equivalenciaDer = 0;
 	}
 	
 	//Si estamos en la hoja de ambos arboles
-	if(r1->izq == null && r2->izq == null && r1->der == null && r2->der == null){
+	/*if(r1->izq == null && r2->izq == null && r1->der == null && r2->der == null){
 		return 1;
+	}*/
+	
+	if(equivalenciaDer == 1 && equivalenciaIzq == 1){
+		return 1;
+	}else{
+		return 0; 
 	}
 	
 }
 
 
+
+int equivalentes(Arbol r1,Arbol r2){
+	int equivalenciaIzq = 1;
+	int equivalenciaDer = 1;
+	
+	if(r1 == null || r2 == null){
+		return 0;
+	}
+	
+	
+	if(r1->izq != null && r2->izq != null){
+		equivalenciaIzq = equivalentes(r1->izq, r2->izq);
+	}else if(r1->izq == null && r2->izq == null){
+		equivalenciaIzq = 1;
+	}else{
+		equivalenciaIzq = 0;
+	}
+	
+	
+	if(r1->der != null && r2->der != null){
+		equivalenciaDer = equivalentes(r1->izq, r2->izq);
+	}else if(r1->der == null && r2->der == null){
+		equivalenciaDer = 1;
+	}else{
+		equivalenciaDer = 0;
+	}
+	
+	
+	if(equivalenciaDer == 1 && equivalenciaIzq == 1 && r1->info == r2->info){
+		return 1;
+	}else{
+		return 0; 
+	}
+	
+}
 
 
 
