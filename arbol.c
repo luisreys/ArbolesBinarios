@@ -437,6 +437,35 @@ int equivalentes(Arbol r1,Arbol r2){
 }
 
 
+Arbol especular(Arbol raiz){
+	Arbol esteNodo = crearNodo(raiz->info);
+	Arbol subArbolIzq = null;
+	Arbol subArbolDer = null;
+	
+	if(raiz == null){
+		return null;
+	}
+	
+	if(raiz->izq != null){
+		subArbolIzq = especular(raiz->izq);
+		esteNodo->der = subArbolIzq;
+	}
+	
+	if(raiz->der != null){
+		subArbolDer = especular(raiz->der);
+		esteNodo->izq = subArbolDer;
+	}
+
+	if(raiz->izq == null && raiz->der == null){
+		return esteNodo;
+	}else{
+		return esteNodo;
+	}
+}
+
+
+
+
 
 
 
